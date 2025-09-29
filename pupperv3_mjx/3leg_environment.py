@@ -50,9 +50,6 @@ class PupperV3Env(PipelineEnv):
             -1.220,
             -0.420,
             -2.790,
-            -2.510,
-            -3.140,
-            -0.710,
         ],
         joint_upper_limits: List = [
             2.510,
@@ -64,9 +61,6 @@ class PupperV3Env(PipelineEnv):
             2.510,
             3.140,
             0.710,
-            1.220,
-            0.420,
-            2.790,
         ],
         dof_damping: float = 0.25,
         position_control_kp: float = 5.0,
@@ -79,20 +73,17 @@ class PupperV3Env(PipelineEnv):
             "leg_front_r_3_foot_site",
             "leg_front_l_3_foot_site",
             "leg_back_r_3_foot_site",
-            "leg_back_l_3_foot_site",
         ],
         torso_name: str = "base_link",
         upper_leg_body_names: List[str] = [
             "leg_front_r_2",
             "leg_front_l_2",
             "leg_back_r_2",
-            "leg_back_l_2",
         ],
         lower_leg_body_names: List[str] = [
             "leg_front_r_3",
             "leg_front_l_3",
             "leg_back_r_3",
-            "leg_back_l_3",
         ],
         resample_velocity_step: int = 500,
         linear_velocity_x_range: Tuple[float, float] = (-0.75, 0.75),
@@ -103,9 +94,9 @@ class PupperV3Env(PipelineEnv):
         maximum_pitch_command: float = 0.0,  # degrees
         maximum_roll_command: float = 0.0,  # degrees
         default_pose: jax.Array = jp.array(
-            [0.26, 0.0, -0.52, -0.26, 0.0, 0.52, 0.26, 0.0, -0.52, -0.26, 0.0, 0.52]
+            [0.26, 0.0, -0.52, -0.26, 0.0, 0.52, 0.26, 0.0, -0.52]
         ),
-        desired_abduction_angles: jax.Array = jp.array([0.0, 0.0, 0.0, 0.0]),
+        desired_abduction_angles: jax.Array = jp.array([0.0, 0.0, 0.0]),
         angular_velocity_noise: float = 0.3,
         gravity_noise: float = 0.1,
         motor_angle_noise: float = 0.1,
