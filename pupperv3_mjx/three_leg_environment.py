@@ -225,7 +225,7 @@ class PupperV3Env(PipelineEnv):
         self._resample_velocity_step = resample_velocity_step
 
         # observation configuration
-        self.observation_dim = 36  # 33 without orientation, 36 with orientation
+        self.observation_dim = 30 # 27 without orientation, 36 with orientation
         self._observation_history = observation_history
 
         # reward configuration
@@ -339,8 +339,8 @@ class PupperV3Env(PipelineEnv):
             "imu_buffer": self.initial_imu_buffer(),
             "last_vel": jp.zeros(9, dtype=float),
             "command": self.sample_command(sample_command_key),
-            "last_contact": jp.zeros(4, dtype=bool),
-            "feet_air_time": jp.zeros(4, dtype=float),
+            "last_contact": jp.zeros(3, dtype=bool),
+            "feet_air_time": jp.zeros(3, dtype=float),
             "rewards": {k: 0.0 for k in self._reward_config.rewards.scales.keys()},
             "kick": jp.array([0.0, 0.0]),
             "step": 0,
@@ -547,11 +547,11 @@ class PupperV3Env(PipelineEnv):
             jax.random.uniform(gravity_key, (3,), minval=-1, maxval=1) * self._gravity_noise
         )
         motor_ang_noise = (
-            jax.random.uniform(motor_angle_key, (12,), minval=-1, maxval=1)
+            jax.random.uniform(motor_angle_key, (9,), minval=-1, maxval=1)
             * self._motor_angle_noise
         )
         last_action_noise = (
-            jax.random.uniform(last_action_key, (12,), minval=-1, maxval=1)
+            jax.random.uniform(last_action_key, (9,), minval=-1, maxval=1)
             * self._last_action_noise
         )
 
