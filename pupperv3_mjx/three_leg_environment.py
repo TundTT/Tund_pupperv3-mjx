@@ -308,7 +308,7 @@ class PupperV3Env(PipelineEnv):
         return desired_world_z_in_body_frame
 
     def initial_action_buffer(self) -> jax.Array:
-        return jp.zeros((12, self._latency_distribution.shape[0]), dtype=float)
+        return jp.zeros((9, self._latency_distribution.shape[0]), dtype=float)
 
     def initial_imu_buffer(self) -> jax.Array:
         """
@@ -334,10 +334,10 @@ class PupperV3Env(PipelineEnv):
 
         state_info = {
             "rng": rng,
-            "last_act": jp.zeros(12, dtype=float),
+            "last_act": jp.zeros(9, dtype=float),
             "action_buffer": self.initial_action_buffer(),
             "imu_buffer": self.initial_imu_buffer(),
-            "last_vel": jp.zeros(12, dtype=float),
+            "last_vel": jp.zeros(9, dtype=float),
             "command": self.sample_command(sample_command_key),
             "last_contact": jp.zeros(4, dtype=bool),
             "feet_air_time": jp.zeros(4, dtype=float),
@@ -445,7 +445,7 @@ class PupperV3Env(PipelineEnv):
                 state.info["command"], joint_angles, self._default_pose, 0.1
             ),
             "stand_still_joint_velocity": rewards.reward_stand_still(
-                state.info["command"], joint_vel, jp.zeros(12), self._stand_still_command_threshold
+                state.info["command"], joint_vel, jp.zeros(9), self._stand_still_command_threshold
             ),
             "abduction_angle": rewards.reward_abduction_angle(
                 joint_angles,
